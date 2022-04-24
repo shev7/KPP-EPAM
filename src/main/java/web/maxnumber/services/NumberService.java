@@ -15,7 +15,11 @@ public class NumberService {
     @Autowired
     private NumbersCache hashMap;
 
+    @Autowired CounterService counterService;
+
     public CustomNumber identifyMaxNumber(int firstNumber, int secondNumber, int thirdNumber) {
+        counterService.increment();
+
         Numbers numbers = new Numbers(firstNumber, secondNumber, thirdNumber);
 
         if (hashMap.hasKey(numbers)) {
@@ -27,6 +31,8 @@ public class NumberService {
                     firstNumber,
                     Math.max(secondNumber, thirdNumber))
         );
+
+        result.setCounter(counterService.increment());
 
         hashMap.create(numbers, result);
 
