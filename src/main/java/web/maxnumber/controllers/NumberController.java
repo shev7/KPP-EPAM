@@ -1,6 +1,7 @@
 package web.maxnumber.controllers;
 
 import web.maxnumber.entities.CustomNumber;
+import web.maxnumber.entities.Numbers;
 import web.maxnumber.services.NumberService;
 
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.Map;
 
 @RestController
 @Validated
@@ -37,5 +40,12 @@ public class NumberController {
                     thirdNumber
                 )
         );
+    }
+
+    @GetMapping("/cache")
+    public Map<Numbers, CustomNumber> getCache() {
+        logger.info("GET /cache");
+
+        return numberService.getCache();
     }
 }
